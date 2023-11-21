@@ -1,28 +1,19 @@
-name: Bump version workflow
-
+name: Bump version
 on:
   push:
     branches:
-      - main
-
+      - master
 jobs:
-  bump-version:
-    name: Bump package version
-    if: "!contains(github.event.head_commit.message, 'Bump version')"
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - name: actions/checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        uses: jaumann/github-bumpversion-action@v0.0.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          persist-credentials: false
-      - name: current_version
-        run: echo "current_version=$(grep 'version = ' setup.cfg | cut -d ' ' -f3)" >> $GITHUB_ENV
-      - name: FragileTech/bump-version
-        uses: FragileTech/bump-version@main
-        with:
-          current_version: "${{ env.current_version }}"
-          files: setup.cfg
-          commit_name: Fabricio Batista Narcizo
-          commit_email: fabricionarcizo@gmail.com
-          login: fabricionarcizo
-          token: "${{ secrets.BOT_TOKEN }}"
+          github_token: ${{ secrets.BOT_TOKEN }}
+          tags: true
