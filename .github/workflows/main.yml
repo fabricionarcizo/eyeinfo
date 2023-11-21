@@ -16,7 +16,7 @@ jobs:
         with:
           persist-credentials: false
       - name: current_version
-        run: echo "current_version=$(grep 'version' setup.cfg | cut -d ' ' -f3)" >> $GITHUB_ENV
+        run: echo "current_version=$(grep 'version = ' setup.cfg | cut -d ' ' -f3)" >> $GITHUB_ENV
       - name: FragileTech/bump-version
         uses: FragileTech/bump-version@main
         with:
