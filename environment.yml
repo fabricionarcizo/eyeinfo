@@ -1,0 +1,10 @@
+name: eyeinfo
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.11.6
+  - pip
+  - pip:
+      - -e .
