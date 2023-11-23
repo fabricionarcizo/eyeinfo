@@ -2,4 +2,5 @@ outs:
 - md5: 3ffd9ede826f65f0f1a2b2136aab3736.dir
   size: 70345818
   nfiles: 6011
+  hash: md5
   path: 01_dataset
